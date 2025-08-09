@@ -1,0 +1,107 @@
+---
+title: "Quality Prediction in a Mining Process"
+author: "Riya S Huddar"
+date: "2024-10-05"
+output: pdf_document
+header-includes:
+  - \usepackage{hyperref}
+  - \hypersetup{colorlinks=true, linkcolor=blue, urlcolor=blue, citecolor=blue}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Abstract
+This study conducts an exploratory data analysis (EDA) on a dataset from a flotation plant, aiming to understand the relationships between various process variables and the final silica concentrate, an impurity measured hourly. The dataset comprises 737,453 records collected over 6 months, with varying sampling frequencies. The analysis reveals a strong negative correlation between iron and silica concentrates, highlighting the impact of separation processes on ore quality. Additionally, hourly trends show significant fluctuations in silica concentrate levels, suggesting influences from multiple factors. This EDA lays the groundwork for future investigations into optimizing mineral processing techniques.
+
+## Introduction
+Mineral processing technologies, such as froth flotation, are critical in separating valuable minerals from contaminants based on their surface characteristics. This analysis focuses on exploratory data analysis (EDA) using data from a flotation plant to visualize the relationships between various operational variables and the final silica concentrate, an impurity measured hourly.By employing EDA techniques, we can identify patterns, trends, and anomalies in the data, which helps engineers understand the factors influencing silica concentration. The engineers need an hour to measure the silica concentrate thereby reducing the efficiency of the process.This insight enables them to take proactive measures to reduce impurity levels and minimize environmental impact, ultimately leading to a decrease in the amount of ore present in tailings.
+
+## Data Description
+The dataset used for this analysis is from Kaggle \href{https://www.kaggle.com/datasets/edumagalhaes/quality-prediction-in-a-mining-process/data} {\textcolor{blue} {(link)}}, comprising 737,453 records from March to September 2017. It includes time-stamped data, with some columns sampled every 20 seconds and others hourly. The second and third columns measure iron ore pulp quality before flotation, while columns 4 to 8 highlight key variables affecting ore quality. Columns 9 to 22 provide process data (level and air flow in flotation columns). The target variable is the final column, indicating the percentage of silica in the iron ore concentrate.
+
+```{r include_stats, echo=FALSE, fig.align='center'}
+knitr::include_graphics("E:\\CMI\\Visualization_project\\Summary_stats.png")
+
+
+```
+
+
+## Exploratory Data Analysis with Visualisation
+Firstly, we calculated the correlation between all the variables and observed that there is a negative correlation between iron concentrate and silica concentrate, as well as between iron and silica feed. The rest of the variables individually show weak correlations with the percentage of silica concentrate. However, it's possible that these variables, when considered together, may have a more significant collective influence on the final output.
+
+```{r include_correlation, echo=FALSE}
+knitr::include_graphics("E:\\CMI\\Visualization_project\\Correlation_matrix.png")
+
+
+```
+\begin{center}
+\textbf{Figure 1: Correlation matrix}
+\end{center}
+
+The second plot focuses on the trend of % silica concentrate for a single day (2017-03-10). We observe that the silica concentrate fluctuates significantly throughout the day, changing almost every hour based on various factors. The highest peak occurs during the late hours(18:00), while the lowest point is reached at 15:00. The % silica concentrate does not follow a monotonic or linear pattern hourly; instead, it exhibits a highly non-linear trend.
+
+
+
+```{r include_hourly_trend, echo=FALSE, fig.align='center'}
+knitr::include_graphics("E:\\CMI\\Visualization_project\\Hourly_Trend.png")
+
+
+```
+\begin{center}
+\textbf{Figure 2: Hourly Trend of percent Silica concentrate on 2017-03-10}
+\end{center}
+
+To analyze the relationships between various variables and the percentage of silica concentrate (measured hourly),we summarise the data on an hour. This approach accounts for the varying data collection frequencies, with some samples recorded every 20 seconds and others hourly. By aggregating the data, we create a more consistent dataset for meaningful analysis. Below, we present the distribution of silica concentrate, our primary variable of interest.
+
+
+```{r include_flows, echo=FALSE}
+knitr::include_graphics("E:\\CMI\\Visualization_project\\Silica_concentrate_distribution.png")
+
+```
+
+\begin{center}
+\textbf{Figure 3: Distribution of Silica concentrate}
+\end{center}
+
+We also plotted box plots for the key variables to identify potential outliers. This helps in deciding whether to remove any outliers for a more effective analysis.
+
+
+
+```{r include_box_plots, echo=FALSE}
+knitr::include_graphics("E:\\CMI\\Visualization_project\\Box_plot.png")
+
+```
+
+\begin{center}
+\textbf{Figure 4: Box plots}
+\end{center}
+
+As previously noted, there is a negative correlation between iron concentrate and silica concentrate, as well as between iron feed and silica feed. The plot below highlights this relationship.
+
+
+
+```{r include_density_plot, echo=FALSE, fig.align='center'}
+knitr::include_graphics("E:\\CMI\\Visualization_project\\Density_plot.png")
+
+```
+\begin{center}
+\textbf{Figure 5: Density Plot}
+\end{center}
+
+## Results
+1. We observe a strong negative correlation between iron concentrate and silica concentrate.The larger, cluster represents the incoming ore. It is expected that the raw material used in production would exhibit higher levels of impurities, as well as have a broader deviation in the measured values. Within this cluster, we observe three to four significant peaks, which indicates possibility of different raw materials used in the input. The density plot illustrates that initially, the iron feed percentage is lower while the silica feed percentage is higher. However, after the purification process, the iron concentrate percentage increases while the silica concentrate percentage decreases.
+2. Further analysis of the correlation matrix reveals that no other variable independently exhibits a significant correlation with silica concentrate. Although these variables combined might have impact on the percent of silica concentrate hence it is important to analyse them as well.
+3. We can also see that the silica concentrate percent changes hourly during the day and hence is non-linear.
+4. The histogram of the mean percentage of silica concentrate suggests a gamma distribution; however, further analysis is needed to confirm this hypothesis.
+5. The box plots indicate outliers in certain columns, which may be removed to achieve more conclusive outcomes.
+
+
+## Conclusion and Discussion
+
+1. This analysis of quality prediction in a mining process highlights a strong negative correlation between iron and silica concentrates, indicating that separation processes significantly affect ore quality.
+2. While individual variables showed weak correlations with silica concentrate, their collective influence on the final silica concentrate demands further investigation.The hourly trends revealed fluctuations in silica concentrate levels, suggesting variability influenced by multiple factors. 
+3. To gather useful insights of the percent of silica concentrate we need more information on other factors that might have a higher correlation with the final silica concentrate.
+
+
